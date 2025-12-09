@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Online Platforms & Content</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .green-glow {
+            position: absolute;
+            width: 260px;
+            height: 160px;
+            background: radial-gradient(ellipse at center, rgba(102, 234, 147, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .green-glow.fast {
+            animation: float 12s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -40px) scale(1.1); }
+            50% { transform: translate(-20px, 30px) scale(0.9); }
+            75% { transform: translate(40px, 20px) scale(1.05); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            cursor: pointer;
+            border-radius: 50px;
+            font-size: 1em;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            position: relative;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin: 25px 0 15px;
+            color: #ffd700;
+            position: relative;
+        }
+
+        p {
+            position: relative;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-box:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.2) 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        .platform-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .platform-card:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.8em; }
+            .card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <header>
+        <h1>🌐 Lesson 2: Online Platforms</h1>
+        <p class="subtitle">Understanding Digital Spaces</p>
+    </header>
+
+    <nav>
+        <a href="index.html" class="nav-btn">🏠 Home</a>
+        <a href="lesson1.html" class="nav-btn">📱 Lesson 1</a>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <h2>Comparing Online Platforms, Sites, and Content</h2>
+            <p style="font-size: 1.1em; line-height: 1.8;">Online platforms are digital spaces—websites or applications—created to serve specific purposes like communication, learning, shopping, or entertainment. Understanding the differences helps you make better decisions and choose the right tool for your needs.</p>
+        </div>
+
+        <div class="card">
+            <h2>🌐 Types of Online Platforms</h2>
+
+            <div class="platform-card">
+                <h3>💬 Social Media Platforms</h3>
+                <p style="margin: 15px 0;">Designed to connect people, share experiences, and build communities through various forms of interaction.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">👥</span>
+                        <strong>Facebook</strong>
+                        <p>Social networking & communities</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">📸</span>
+                        <strong>Instagram</strong>
+                        <p>Photo & video sharing</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🎵</span>
+                        <strong>TikTok</strong>
+                        <p>Short-form video content</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">💼</span>
+                        <strong>LinkedIn</strong>
+                        <p>Professional networking</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>Key Features:</strong> User profiles, News feeds, Messaging, Content sharing, Reactions and comments, Live streaming
+                </div>
+            </div>
+
+            <div class="platform-card">
+                <h3>⚡ Productivity Platforms</h3>
+                <p style="margin: 15px 0;">Help users organize tasks, collaborate with others, and create or manage content efficiently, streamlining workflows.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">📝</span>
+                        <strong>Google Workspace</strong>
+                        <p>Docs, Sheets, Slides, Drive</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">💼</span>
+                        <strong>Microsoft 365</strong>
+                        <p>Word, Excel, PowerPoint</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🎨</span>
+                        <strong>Canva</strong>
+                        <p>Graphic design & templates</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">📋</span>
+                        <strong>Notion</strong>
+                        <p>All-in-one workspace</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>Key Features:</strong> Real-time collaboration, Cloud storage, Templates, Task management, Document creation, Team workspaces
+                </div>
+            </div>
+
+            <div class="platform-card">
+                <h3>📚 Information Platforms</h3>
+                <p style="margin: 15px 0;">Provide knowledge, data, and resources for research or staying informed. Critical evaluation of sources is essential.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">📖</span>
+                        <strong>Wikipedia</strong>
+                        <p>Crowdsourced encyclopedia</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🔬</span>
+                        <strong>Google Scholar</strong>
+                        <p>Academic research papers</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">📰</span>
+                        <strong>News Websites</strong>
+                        <p>Current events & journalism</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🎓</span>
+                        <strong>Educational Sites</strong>
+                        <p>Learning resources & courses</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>Key Features:</strong> Searchable databases, Citations and references, Updated content, Verified sources, Multiple perspectives, Archive access
+                </div>
+            </div>
+
+            <div class="platform-card">
+                <h3>🎮 Entertainment Platforms</h3>
+                <p style="margin: 15px 0;">Offer content for leisure including videos, music, games, and live streams, engaging users with interactive elements.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">📺</span>
+                        <strong>YouTube</strong>
+                        <p>Video sharing & streaming</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🎬</span>
+                        <strong>Netflix/Disney+</strong>
+                        <p>Movies & TV series</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🎵</span>
+                        <strong>Spotify/Apple Music</strong>
+                        <p>Music streaming & podcasts</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🎮</span>
+                        <strong>Twitch</strong>
+                        <p>Live game streaming</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>Key Features:</strong> On-demand content, Personalized recommendations, Playlists and libraries, Offline viewing, Live streaming, User ratings and reviews
+                </div>
+            </div>
+
+            <div class="platform-card">
+                <h3>🛒 E-Commerce Platforms</h3>
+                <p style="margin: 15px 0;">Enable online buying and selling of goods and services, transforming traditional shopping experiences.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">🛍️</span>
+                        <strong>Amazon</strong>
+                        <p>Global marketplace</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🛒</span>
+                        <strong>Lazada/Shopee</strong>
+                        <p>Southeast Asian e-commerce</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🎨</span>
+                        <strong>Etsy</strong>
+                        <p>Handmade & vintage items</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">📦</span>
+                        <strong>eBay</strong>
+                        <p>Auctions & buying</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>Key Features:</strong> Product catalogs, Shopping carts, Secure payments, Order tracking, Customer reviews, Wishlists
+                </div>
+            </div>
+
+            <div class="platform-card">
+                <h3>🎓 Learning Platforms</h3>
+                <p style="margin: 15px 0;">Provide educational content through courses, tutorials, and interactive lessons for skill development.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">📚</span>
+                        <strong>Coursera</strong>
+                        <p>University courses & degrees</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">💻</span>
+                        <strong>Udemy</strong>
+                        <p>Skill-based video courses</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🧮</span>
+                        <strong>Khan Academy</strong>
+                        <p>Free educational resources</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🌍</span>
+                        <strong>Duolingo</strong>
+                        <p>Language learning app</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>Key Features:</strong> Video lectures, Quizzes and assessments, Certificates, Progress tracking, Discussion forums, Mobile learning
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎯 Choosing the Right Platform</h2>
+            <p style="font-size: 1.1em; margin-bottom: 25px;">Making informed decisions about which platform to use requires careful consideration of your goals and needs.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <span class="icon">🎯</span>
+                    <strong>Define Your Purpose</strong>
+                    <p>What do you want to achieve?</p>
+                </div>
+                <div class="feature-box">
+                    <span class="icon">👥</span>
+                    <strong>Know Your Audience</strong>
+                    <p>Who are you connecting with?</p>
+                </div>
+                <div class="feature-box">
+                    <span class="icon">🔍</span>
+                    <strong>Check Features</strong>
+                    <p>Does it have what you need?</p>
+                </div>
+                <div class="feature-box">
+                    <span class="icon">✅</span>
+                    <strong>Evaluate Quality</strong>
+                    <p>Is the content reliable?</p>
+                </div>
+                <div class="feature-box">
+                    <span class="icon">🔒</span>
+                    <strong>Consider Privacy</strong>
+                    <p>How is your data protected?</p>
+                </div>
+                <div class="feature-box">
+                    <span class="icon">💰</span>
+                    <strong>Review Costs</strong>
+                    <p>Is it free or subscription-based?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📊 Platform Comparison Tips</h2>
+            
+            <div class="platform-card">
+                <h3>✓ Questions to Ask</h3>
+                <p style="margin: 15px 0;"><strong>Before choosing a platform, consider:</strong></p>
+                <ul style="list-style: none; padding-left: 0; position: relative;">
+                    <li style="padding: 12px 0; padding-left: 35px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #ffd700; font-size: 1.5em;">▹</span>
+                        What is my primary goal? (Learn, communicate, shop, create)
+                    </li>
+                    <li style="padding: 12px 0; padding-left: 35px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #ffd700; font-size: 1.5em;">▹</span>
+                        Is this platform widely used and trusted?
+                    </li>
+                    <li style="padding: 12px 0; padding-left: 35px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #ffd700; font-size: 1.5em;">▹</span>
+                        Does it work on my devices? (Mobile, desktop, tablet)
+                    </li>
+                    <li style="padding: 12px 0; padding-left: 35px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #ffd700; font-size: 1.5em;">▹</span>
+                        What are other users saying in reviews?
+                    </li>
+                    <li style="padding: 12px 0; padding-left: 35px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #ffd700; font-size: 1.5em;">▹</span>
+                        Are there privacy concerns or data collection practices?
+                    </li>
+                    <li style="padding: 12px 0; padding-left: 35px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #ffd700; font-size: 1.5em;">▹</span>
+                        Can I easily move my data if I want to switch platforms later?
+                    </li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <strong>💡 Pro Tip:</strong> Don't put all your eggs in one basket! Use multiple platforms for different purposes and always verify important information from multiple reliable sources.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ICT Learning Platform | Making Technology Accessible to Everyone</p>
+        <p style="margin-top: 10px; opacity: 0.8;">🌟 Empowering Digital Literacy 🌟</p>
+    </footer>
+
+    <script>
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 140; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = (Math.random() * 4) + 's';
+                star.style.opacity = (0.3 + Math.random() * 0.7).toFixed(2);
+                starsContainer.appendChild(star);
+            }
+
+            for (let i = 0; i < 14; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = (10 + Math.random() * 80) + '%';
+                star.style.top = (10 + Math.random() * 80) + '%';
+                const size = 3 + Math.random() * 3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = (Math.random() * 6) + 's';
+                star.style.boxShadow = '0 0 ' + (8 + Math.random() * 12) + 'px rgba(255,255,255,0.9)';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createGreenGlows() {
+            const starsContainer = document.getElementById('stars');
+            const coords = [
+                { left: '10%', top: '15%', cls: 'slow' },
+                { left: '75%', top: '10%', cls: 'fast' },
+                { left: '60%', top: '60%', cls: 'slow' },
+                { left: '20%', top: '70%', cls: 'fast' }
+            ];
+
+            coords.forEach((c) => {
+                const g = document.createElement('div');
+                g.className = 'green-glow ' + c.cls;
+                g.style.left = c.left;
+                g.style.top = c.top;
+                const scale = 0.8 + Math.random() * 1.4;
+                g.style.width = Math.round(260 * scale) + 'px';
+                g.style.height = Math.round(160 * scale) + 'px';
+                g.style.opacity = 0.6 + Math.random() * 0.35;
+                starsContainer.appendChild(g);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            createStars();
+            createGreenGlows();
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const c = document.getElementById('stars');
+                while (c.firstChild) c.removeChild(c.firstChild);
+                createStars();
+                createGreenGlows();
+            }, 350);
+        });
+    </script>
+</body>
+</html>

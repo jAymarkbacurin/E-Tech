@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Online Safety, Security, Ethics & Etiquette</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .green-glow {
+            position: absolute;
+            width: 260px;
+            height: 160px;
+            background: radial-gradient(ellipse at center, rgba(102, 234, 147, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .green-glow.fast {
+            animation: float 12s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -40px) scale(1.1); }
+            50% { transform: translate(-20px, 30px) scale(0.9); }
+            75% { transform: translate(40px, 20px) scale(1.05); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            cursor: pointer;
+            border-radius: 50px;
+            font-size: 1em;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            position: relative;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin: 25px 0 15px;
+            color: #ffd700;
+            position: relative;
+        }
+
+        h4 {
+            font-size: 1.4em;
+            margin: 20px 0 10px;
+            color: #ffec8b;
+            position: relative;
+        }
+
+        p {
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .threat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .threat-box {
+            background: rgba(255, 99, 71, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 99, 71, 0.3);
+            transition: all 0.3s;
+        }
+
+        .threat-box:hover {
+            background: rgba(255, 99, 71, 0.2);
+            transform: scale(1.03);
+            border-color: rgba(255, 99, 71, 0.5);
+        }
+
+        .safety-box {
+            background: rgba(50, 205, 50, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(50, 205, 50, 0.3);
+            transition: all 0.3s;
+        }
+
+        .safety-box:hover {
+            background: rgba(50, 205, 50, 0.2);
+            transform: scale(1.03);
+            border-color: rgba(50, 205, 50, 0.5);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-box:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.2) 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255,99,71,0.2) 0%, rgba(220,20,60,0.2) 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ff6347;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, rgba(50,205,50,0.2) 0%, rgba(34,139,34,0.2) 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #32cd32;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            position: relative;
+        }
+
+        li {
+            padding: 10px 0;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-size: 1.5em;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .weak-example {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .strong-example {
+            background: rgba(0, 255, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .law-card {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+
+        .law-card h4 {
+            color: #ffd700;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .etiquette-card {
+            background: rgba(135, 206, 250, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid rgba(135, 206, 250, 0.3);
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 15px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid #ffd700;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+
+        .badge.danger {
+            background: rgba(255, 99, 71, 0.2);
+            border-color: #ff6347;
+        }
+
+        .badge.success {
+            background: rgba(50, 205, 50, 0.2);
+            border-color: #32cd32;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.8em; }
+            .card { padding: 25px; }
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <header>
+        <h1>🔒 Lesson 3: Online Safety & Ethics</h1>
+        <p class="subtitle">Staying Safe and Responsible Online</p>
+    </header>
+
+    <nav>
+        <a href="index.html" class="nav-btn">🏠 Home</a>
+        <a href="lesson1.html" class="nav-btn">📱 Lesson 1</a>
+        <a href="lesson2.html" class="nav-btn">🌐 Lesson 2</a>
+    </nav>
+
+    <div class="container">
+        <!-- SECTION 1: Online Safety -->
+        <div class="card">
+            <h2>🛡️ 1. Online Safety — Protecting Yourself from Harm</h2>
+            <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 30px;">Online safety means taking steps to protect yourself, your personal information, and your well-being while using the internet. It involves recognizing risks and knowing how to respond to online threats.</p>
+
+            <h3>⚠️ Common Online Threats</h3>
+
+            <div class="threat-grid">
+                <div class="threat-box">
+                    <h4>😢 Cyberbullying</h4>
+                    <p>When someone harasses, threatens, or humiliates another person online. It can cause emotional distress, anxiety, or depression.</p>
+                    <div class="example-box" style="margin-top: 15px; border-left-color: #ff6347;">
+                        <strong>🛡️ What to do:</strong> Block the person, report the behavior, and tell a trusted adult immediately.
+                    </div>
+                </div>
+
+                <div class="threat-box">
+                    <h4>👤 Online Predators</h4>
+                    <p>Adults who try to exploit minors for harmful purposes online.</p>
+                    <div class="warning-box" style="margin-top: 15px;">
+                        <strong>🚩 Red Flags:</strong>
+                        <ul>
+                            <li>Asks for personal information</li>
+                            <li>Wants to meet alone</li>
+                            <li>Sends inappropriate content</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="threat-box">
+                    <h4>🎣 Scams and Phishing</h4>
+                    <p>Tricks used to steal your money or personal information through fake messages or websites.</p>
+                    <div class="example-box" style="margin-top: 15px; border-left-color: #ff6347;">
+                        <strong>Stay Safe:</strong> Always verify senders, avoid suspicious links, and check URLs carefully.
+                    </div>
+                </div>
+
+                <div class="threat-box">
+                    <h4>🆔 Identity Theft</h4>
+                    <p>When someone steals your personal information to commit fraud.</p>
+                    <div class="example-box" style="margin-top: 15px; border-left-color: #ff6347;">
+                        <strong>Protection:</strong> Don't overshare online and use privacy settings on all accounts.
+                    </div>
+                </div>
+
+                <div class="threat-box">
+                    <h4>⛔ Inappropriate Content</h4>
+                    <p>Material that is violent, sexual, or hateful.</p>
+                    <div class="example-box" style="margin-top: 15px; border-left-color: #ff6347;">
+                        <strong>Safety Tips:</strong> Avoid risky websites, use parental controls, and report harmful content.
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>✅ Safety Tips to Remember</h4>
+                <ul>
+                    <li>Use privacy settings on all social media</li>
+                    <li>Think before you post — it's permanent</li>
+                    <li>Trust your instincts — if something feels wrong, it probably is</li>
+                    <li>Keep personal information private (address, phone number, location)</li>
+                    <li>Tell someone if you feel unsafe online</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Online Security -->
+        <div class="card">
+            <h2>🔐 2. Online Security — Protecting Your Data and Devices</h2>
+            <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 30px;">Online security means keeping your information and devices safe from hackers or cyberattacks. It includes using strong passwords, secure networks, and protective tools.</p>
+
+            <div class="safety-box">
+                <h3>🔑 Strong Passwords</h3>
+                <p style="margin: 15px 0;">Creating secure passwords is your first line of defense against unauthorized access.</p>
+                
+                <h4>Password Requirements:</h4>
+                <ul>
+                    <li>At least 12 characters long</li>
+                    <li>Mix uppercase, lowercase, numbers, and symbols</li>
+                    <li>Avoid dictionary words, birthdays, or "password123"</li>
+                    <li>Use different passwords for different accounts</li>
+                    <li>Consider a password manager (LastPass, 1Password)</li>
+                </ul>
+
+                <div class="comparison-grid">
+                    <div class="weak-example">
+                        <h4>❌ Weak Password</h4>
+                        <p style="font-size: 1.3em; font-family: monospace; margin: 10px 0;">password123</p>
+                        <p><small>Easy to guess and crack</small></p>
+                    </div>
+                    <div class="strong-example">
+                        <h4>✅ Strong Password</h4>
+                        <p style="font-size: 1.3em; font-family: monospace; margin: 10px 0;">Tr0pic@lSt0rm#2024!</p>
+                        <p><small>Complex and secure</small></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="safety-box">
+                <h3>🔐 Two-Factor Authentication (2FA)</h3>
+                <p style="margin: 15px 0;">Adds an extra layer of security. Even if someone has your password, they still need your phone or email to access your account.</p>
+                <div class="example-box">
+                    <strong>Enable 2FA on:</strong> Gmail, Facebook, Instagram, banking apps, and all important accounts.
+                </div>
+            </div>
+
+            <div class="safety-box">
+                <h3>📡 Secure Wi-Fi</h3>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">⚠️</span>
+                        <strong>Public Wi-Fi Risks</strong>
+                        <p>Hackers can intercept data</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🔒</span>
+                        <strong>Use VPNs</strong>
+                        <p>Encrypt data on public networks</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🏠</span>
+                        <strong>Home Router</strong>
+                        <p>Change default passwords</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="safety-box">
+                <h3>📱 Device Security</h3>
+                <ul>
+                    <li>Keep software and apps updated regularly</li>
+                    <li>Install reputable antivirus software</li>
+                    <li>Enable "Find My Device" features</li>
+                    <li>Lock screen with PIN or biometric authentication</li>
+                    <li>Back up important data to the cloud or external drive</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3>🦠 Recognizing Malware</h3>
+                <div class="threat-grid">
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                        <h4>🦠 Virus</h4>
+                        <p>Corrupts files and spreads to other devices</p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                        <h4>🐴 Trojan</h4>
+                        <p>Disguises as legitimate software</p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                        <h4>🔒 Ransomware</h4>
+                        <p>Locks files until payment is made</p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                        <h4>👁️ Spyware</h4>
+                        <p>Monitors activity secretly</p>
+                    </div>
+                </div>
+                <div class="example-box" style="margin-top: 20px; border-left-color: #ff6347;">
+                    <strong>⚠️ Warning Signs:</strong> Slow computer, pop-ups, programs opening by themselves, fast battery drain
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Online Ethics -->
+        <div class="card">
+            <h2>⚖️ 3. Online Ethics — Doing the Right Thing</h2>
+            <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 30px;">Online ethics involves making responsible choices that respect others and follow laws and moral principles in digital spaces.</p>
+
+            <div class="etiquette-card">
+                <h3>🚫 Cyberbullying is Never OK</h3>
+                <p>Don't send hate messages, spread rumors, or exclude people online. Stand up for victims and report bullying behavior immediately.</p>
+            </div>
+
+            <div class="etiquette-card">
+                <h3>🏴‍☠️ Digital Piracy</h3>
+                <p>Illegally downloading or sharing copyrighted content (movies, music, software) without permission.</p>
+                <div class="example-box">
+                    <strong>Better Alternative:</strong> Use legal streaming services like Netflix, Spotify, or Apple Music to support creators and avoid malware risks.
+                </div>
+            </div>
+
+            <div class="etiquette-card">
+                <h3>📝 Plagiarism and Intellectual Property</h3>
+                <p>Using someone's work without giving proper credit is wrong and can have serious academic or legal consequences.</p>
+                <ul>
+                    <li>Always cite your sources properly</li>
+                    <li>Paraphrase content and give attribution</li>
+                    <li>Use plagiarism checkers before submitting work</li>
+                    <li>Respect copyright and creative ownership</li>
+                </ul>
+            </div>
+
+            <div class="etiquette-card">
+                <h3>🔐 Privacy and Consent</h3>
+                <p>Don't share someone's private information, photos, or messages without their explicit permission. Respect digital boundaries just as you would in person.</p>
+                <span class="badge danger">Never Share Without Permission</span>
+            </div>
+
+            <div class="etiquette-card">
+                <h3>✅ Fact-Checking and Misinformation</h3>
+                <p>In the age of viral content, it's crucial to verify information before sharing.</p>
+                <ul>
+                    <li>Check multiple reliable sources</li>
+                    <li>Look for original sources, not just social media posts</li>
+                    <li>Avoid spreading unverified rumors or conspiracy theories</li>
+                    <li>Use fact-checking websites when in doubt</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 40px;">🇵🇭 Philippine Laws on Cybersecurity</h3>
+
+            <div class="law-card">
+                <h4>📜 Republic Act No. 10175 — Cybercrime Prevention Act of 2012</h4>
+                <p style="margin: 15px 0;">Protects individuals and organizations from cybercrimes such as hacking, identity theft, cyberbullying, and online fraud.</p>
+                <ul>
+                    <li>Punishments include fines and imprisonment depending on severity</li>
+                    <li>Covers computer-related fraud and cybersex</li>
+                    <li>Addresses illegal access to computer systems</li>
+                    <li>Includes libel committed online</li>
+                </ul>
+                <span class="badge">Legal Protection</span>
+            </div>
+
+            <div class="law-card">
+                <h4>🔒 Republic Act No. 10173 — Data Privacy Act of 2012</h4>
+                <p style="margin: 15px 0;">Protects personal information stored in digital or physical form from misuse, unauthorized access, or disclosure.</p>
+                <ul>
+                    <li>Requires companies to implement data security measures</li>
+                    <li>Organizations must obtain consent before collecting personal info</li>
+                    <li>Gives individuals the right to know what data is collected</li>
+                    <li>Allows people to request correction or deletion of their data</li>
+                </ul>
+                <span class="badge">Your Rights Protected</span>
+            </div>
+        </div>
+
+        <!-- SECTION 4: Online Etiquette -->
+        <div class="card">
+            <h2>💬 4. Online Etiquette (Netiquette) — Being Polite Online</h2>
+            <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 30px;">Netiquette refers to the proper way to behave and communicate online. Just like face-to-face interactions, digital communication requires respect and consideration.</p>
+
+            <div class="etiquette-card">
+                <h3>🗣️ Tone and Language</h3>
+                <ul>
+                    <li>Use polite and respectful language</li>
+                    <li>Avoid typing in ALL CAPS (it looks like shouting)</li>
+                    <li>Don't use excessive punctuation!!!!!!</li>
+                    <li>Use proper grammar in formal settings</li>
+                    <li>Be mindful that tone can be misunderstood in text</li>
+                </ul>
+            </div>
+
+            <div class="etiquette-card">
+                <h3>📧 Email Etiquette</h3>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">📌</span>
+                        <strong>Clear Subject Lines</strong>
+                        <p>Summarize the purpose</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">👋</span>
+                        <strong>Proper Greetings</strong>
+                        <p>"Dear" or "Hello"</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">✉️</span>
+                        <strong>Professional Address</strong>
+                        <p>Use appropriate email names</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">✍️</span>
+                        <strong>Proofread</strong>
+                        <p>Check before sending</p>
+                    </div>
+                </div>
+                <div class="example-box">
+                    <strong>Example Closing:</strong> "Best regards," "Sincerely," "Thank you," followed by your name
+                </div>
+            </div>
+
+            <div class="etiquette-card">
+                <h3>📱 Social Media Etiquette</h3>
+                <ul>
+                    <li>Think before posting — consider how it might be perceived</li>
+                    <li>Respect different opinions and viewpoints</li>
+                    <li>Avoid oversharing personal information</li>
+                    <li>Don't tag people in photos without their permission</li>
+                    <li>Give credit when sharing others' content</li>
+                    <li>Be authentic but maintain appropriate boundaries</li>
+                </ul>
+            </div>
+
+            <div class="etiquette-card">
+                <h3>💻 Online Class Etiquette</h3>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <span class="icon">⏰</span>
+                        <strong>Be On Time</strong>
+                        <p>Join meetings promptly</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">🔇</span>
+                        <strong>Mute When Not Speaking</strong>
+                        <p>Reduce background noise</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">👔</span>
+                        <strong>Dress Appropriately</strong>
+                        <p>Present yourself professionally</p>
+                    </div>
+                    <div class="feature-box">
+                        <span class="icon">✋</span>
+                        <strong>Participate</strong>
+                        <p>Engage when called upon</p>
+                    </div>
+                </div>
+                <div class="example-box">
+                    <strong>💡 Pro Tip:</strong> Stay on-topic in chat discussions and raise your hand (virtual button) before speaking.
+                </div>
+            </div>
+
+            <div class="etiquette-card">
+                <h3>💭 Comment Section Etiquette</h3>
+                <ul>
+                    <li><strong>Stay Constructive:</strong> Provide helpful feedback, not just criticism</li>
+                    <li><strong>Stay On-Topic:</strong> Keep comments relevant to the content</li>
+                    <li><strong>Ignore Trolls:</strong> Don't feed negative attention-seekers</li>
+                    <li><strong>Admit Mistakes:</strong> It's okay to be wrong and apologize</li>
+                    <li><strong>Disagree Respectfully:</strong> You can challenge ideas without attacking people</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h4>🌟 Remember: The Golden Rule of the Internet</h4>
+                <p style="font-size: 1.2em; text-align: center; margin-top: 15px;"><em>"Treat others online as you would want to be treated in real life."</em></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ICT Learning Platform | Making Technology Accessible to Everyone</p>
+        <p style="margin-top: 10px; opacity: 0.8;">🌟 Stay Safe, Stay Smart, Stay Respectful 🌟</p>
+    </footer>
+
+    <script>
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 140; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = (Math.random() * 4) + 's';
+                star.style.opacity = (0.3 + Math.random() * 0.7).toFixed(2);
+                starsContainer.appendChild(star);
+            }
+
+            for (let i = 0; i < 14; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = (10 + Math.random() * 80) + '%';
+                star.style.top = (10 + Math.random() * 80) + '%';
+                const size = 3 + Math.random() * 3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = (Math.random() * 6) + 's';
+                star.style.boxShadow = '0 0 ' + (8 + Math.random() * 12) + 'px rgba(255,255,255,0.9)';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createGreenGlows() {
+            const starsContainer = document.getElementById('stars');
+            const coords = [
+                { left: '10%', top: '15%', cls: 'slow' },
+                { left: '75%', top: '10%', cls: 'fast' },
+                { left: '60%', top: '60%', cls: 'slow' },
+                { left: '20%', top: '70%', cls: 'fast' }
+            ];
+
+            coords.forEach((c) => {
+                const g = document.createElement('div');
+                g.className = 'green-glow ' + c.cls;
+                g.style.left = c.left;
+                g.style.top = c.top;
+                const scale = 0.8 + Math.random() * 1.4;
+                g.style.width = Math.round(260 * scale) + 'px';
+                g.style.height = Math.round(160 * scale) + 'px';
+                g.style.opacity = 0.6 + Math.random() * 0.35;
+                starsContainer.appendChild(g);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            createStars();
+            createGreenGlows();
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const c = document.getElementById('stars');
+                while (c.firstChild) c.removeChild(c.firstChild);
+                createStars();
+                createGreenGlows();
+            }, 350);
+        });
+    </script>
+</body>
+</html>

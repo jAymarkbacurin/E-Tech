@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT Evolution - Interactive Learning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .green-glow {
+            position: absolute;
+            width: 260px;
+            height: 160px;
+            background: radial-gradient(ellipse at center, rgba(102, 234, 147, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .green-glow.fast {
+            animation: float 12s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -40px) scale(1.1); }
+            50% { transform: translate(-20px, 30px) scale(0.9); }
+            75% { transform: translate(40px, 20px) scale(1.05); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+            to { text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 40px rgba(102,126,234,0.8); }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.1em;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .intro-card h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .intro-card p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            opacity: 0.95;
+            position: relative;
+        }
+
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .lesson-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .lesson-card:hover::before {
+            opacity: 1;
+        }
+
+        .lesson-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+            display: block;
+            position: relative;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .lesson-card h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .lesson-card p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .lesson-topics {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+
+        .lesson-topics ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lesson-topics li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            opacity: 0.85;
+        }
+
+        .lesson-topics li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-size: 1.3em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .lesson-grid { 
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .intro-card { padding: 30px; }
+            .lesson-card { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <header>
+        <h1>🚀 ICT Evolution</h1>
+        <p class="subtitle">Journey Through Digital Innovation</p>
+        <p class="tagline">Explore the Past, Present, and Future of Technology</p>
+    </header>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>Welcome to ICT Learning!</h2>
+            <p>Information and Communication Technology (ICT) shapes how we live, learn, and connect with the world. This interactive platform will guide you through the evolution of digital technology and help you understand the online platforms that power our modern lives.</p>
+        </div>
+
+        <div class="lesson-grid">
+            <a href="lesson1.html" class="lesson-card">
+                <span class="lesson-icon">📱</span>
+                <h3>Lesson 1: The Current State of ICT</h3>
+                <p>Discover how technology has evolved from simple static web pages to intelligent, interactive systems that learn and adapt.</p>
+                <div class="lesson-topics">
+                    <ul>
+                        <li>Evolution of the Web (1.0, 2.0, 3.0)</li>
+                        <li>Mobile Technologies (1G to 5G)</li>
+                        <li>Convergent Technology</li>
+                        <li>Assistive Technologies</li>
+                    </ul>
+                </div>
+            </a>
+
+            <a href="lesson2.html" class="lesson-card">
+                <span class="lesson-icon">🌐</span>
+                <h3>Lesson 2: Online Platforms & Content</h3>
+                <p>Learn about different types of online platforms and how to choose the right tools for communication, productivity, and entertainment.</p>
+                <div class="lesson-topics">
+                    <ul>
+                        <li>Social Media Platforms</li>
+                        <li>Productivity Tools</li>
+                        <li>Information & Research Platforms</li>
+                        <li>Entertainment Services</li>
+                    </ul>
+                </div>
+            </a>
+
+            <a href="lesson3.html" class="lesson-card">
+                <span class="lesson-icon">🔒</span>
+                <h3>Lesson 3: Online Safety & Ethics</h3>
+                <p>Master essential skills for staying safe online, protecting your data, and being a responsible digital citizen in the modern world.</p>
+                <div class="lesson-topics">
+                    <ul>
+                        <li>Online Safety & Common Threats</li>
+                        <li>Security & Password Protection</li>
+                        <li>Ethics & Philippine Cyber Laws</li>
+                        <li>Netiquette & Digital Citizenship</li>
+                    </ul>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ICT Learning Platform | Making Technology Accessible to Everyone</p>
+        <p style="margin-top: 10px; opacity: 0.8;">🌟 Empowering Digital Literacy 🌟</p>
+    </footer>
+
+    <script>
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 140; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = (Math.random() * 4) + 's';
+                star.style.opacity = (0.3 + Math.random() * 0.7).toFixed(2);
+                starsContainer.appendChild(star);
+            }
+
+            for (let i = 0; i < 14; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = (10 + Math.random() * 80) + '%';
+                star.style.top = (10 + Math.random() * 80) + '%';
+                const size = 3 + Math.random() * 3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = (Math.random() * 6) + 's';
+                star.style.boxShadow = '0 0 ' + (8 + Math.random() * 12) + 'px rgba(255,255,255,0.9)';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createGreenGlows() {
+            const starsContainer = document.getElementById('stars');
+            const coords = [
+                { left: '10%', top: '15%', cls: 'slow' },
+                { left: '75%', top: '10%', cls: 'fast' },
+                { left: '60%', top: '60%', cls: 'slow' },
+                { left: '20%', top: '70%', cls: 'fast' }
+            ];
+
+            coords.forEach((c) => {
+                const g = document.createElement('div');
+                g.className = 'green-glow ' + c.cls;
+                g.style.left = c.left;
+                g.style.top = c.top;
+                const scale = 0.8 + Math.random() * 1.4;
+                g.style.width = Math.round(260 * scale) + 'px';
+                g.style.height = Math.round(160 * scale) + 'px';
+                g.style.opacity = 0.6 + Math.random() * 0.35;
+                starsContainer.appendChild(g);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            createStars();
+            createGreenGlows();
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const c = document.getElementById('stars');
+                while (c.firstChild) c.removeChild(c.firstChild);
+                createStars();
+                createGreenGlows();
+            }, 350);
+        });
+    </script>
+</body>
+</html>
